@@ -158,9 +158,9 @@ namespace Nop.Services.Orders
                     .Any(orderItem =>
                         //"Use multiple warehouses" enabled
                         //we search in each warehouse
-                        (orderItem.Product.ManageInventoryMethodId == manageStockInventoryMethodId &&
+                        orderItem.Product.ManageInventoryMethodId == manageStockInventoryMethodId &&
                         orderItem.Product.UseMultipleWarehouses &&
-                        orderItem.Product.ProductWarehouseInventory.Any(pwi => pwi.WarehouseId == warehouseId))
+                        orderItem.Product.ProductWarehouseInventory.Any(pwi => pwi.WarehouseId == warehouseId)
                         ||
                         //"Use multiple warehouses" disabled
                         //we use standard "warehouse" property
@@ -540,9 +540,11 @@ namespace Nop.Services.Orders
                               (
                                 warehouseId == 0
                                 ||
-                                (orderItem.Product.ManageInventoryMethodId == manageStockInventoryMethodId &&
+                                //"Use multiple warehouses" enabled
+                                //we search in each warehouse
+                                orderItem.Product.ManageInventoryMethodId == manageStockInventoryMethodId &&
                                 orderItem.Product.UseMultipleWarehouses &&
-                                orderItem.Product.ProductWarehouseInventory.Any(pwi => pwi.WarehouseId == warehouseId))
+                                orderItem.Product.ProductWarehouseInventory.Any(pwi => pwi.WarehouseId == warehouseId)
                                 ||
                                 //"Use multiple warehouses" disabled
                                 //we use standard "warehouse" property
